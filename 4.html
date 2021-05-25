@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="partial.js"></script>
+</head>
+<body>
+    <script>
+        // 지연 평가를 시작 시키고 유지 시키는(이어 가는) 함수
+        // 1. map
+        // 2. filter, reject
+
+        // 그전에는 100번을 다 돌고나서 5개를 뽑아냈다면, 
+        // 지연 평가는 range(100)개 뽑고, map에서 filter로 넘어가고, filter에서 참이면 넘어가고 
+        // take함수를 만난다. 
+
+        var mi = 0;
+        var fi = 0;
+        _.go(
+            _.range(100),
+            L.map(function(val){
+                ++mi;
+                return val * val;
+            }),
+            L.filter(function(val){
+                ++fi;
+                return val % 2;
+            }),
+            L.take(5),
+            console.log
+        );
+
+        console.log(mi, fi);
+
+        _.go(
+            _.range(100),
+            L.map(function(val){
+                ++mi;
+                return val * val;
+            }),
+            L.filter(function(val){
+                ++fi;
+                return val % 2;
+            }),
+            L.some(function(val){
+                return val > 100;
+            }),
+            console.log
+        );
+
+        console.log(mi, fi);
+        
+        // 끝을 내는 함수
+        // 1. take
+        // 2. some, every, find
+    </script>
+</body>
+</html>
